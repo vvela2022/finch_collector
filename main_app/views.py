@@ -3,7 +3,7 @@ from django.views import View #view class to handle requests
 from django.http import HttpResponse #a class to handle sending a type of response
 from django.views.generic.base import TemplateView 
 from .models import Birds
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 from django.urls import reverse
 
@@ -82,4 +82,9 @@ class BirdsUpdate(UpdateView):
     
     def get_success_url(self):
         return reverse('birds_detail', kwargs={'pk': self.object.pk})
+
+class BirdsDelete(DeleteView):
+    model = Birds
+    template_name = 'birds_delete_confirmation.html'
+    success_url = '/birds/'
 
