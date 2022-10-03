@@ -22,12 +22,58 @@
                 <i class="fas fa-edit"></i>
             </span>
         </a>
-        <a href="/birds/{{birds.id}}/delete" class="button is-danger">Delete
+        <a href="{% url 'birds_delete' birds.pk %}" class="button is-danger">Delete
             <span class="icon">
                 <i class="fas fa-trash-alt"></i>
             </span>
         </a>
     </div>
+    <form class="mb-5" action="{% url 'habitat_create' birds.pk %}" method="post">
+        {% csrf_token %}
+        <div class="field has-addons">
+            <div class="control">
+                <input
+                    class="input"
+                    type="text"
+                    name="name"
+                    placeholder="type of habitat"
+                    required
+                />
+            </div>
+            <div class="control">
+                <input
+                    class="input"
+                    type="text"
+                    name="location"
+                    placeholder="location"
+                    required
+                />
+            </div>
+            <div class="control">
+                <input class="button is-primary" type="submit" value="Add Habitat" />
+            </div>
+        </div>
+    </form>
+    <!-- inside container -->
+<div class="detail__songs mb-5">
+    <h3 class="title is-3">Habitats</h3>
+
+    {% for habitat in birds.habitats.all %}
+        <div class="song">
+            <span>{{forloop.counter}}</span>
+            <span><b>Type: {{habitat.name}}</b></span>
+            <span>Location: {{habitat.location}}</span>
+        </div>
+    {% empty %}
+        <article class="message">
+            <div class="message-header">
+                <p>No Habitats Available</p>
+            </div>
+        </article>
+
+    {% endfor %}
+</div>
+<!--  above about section  -->
     <div class="detail__about">
         <h4 class="title is-4">About</h4>
         <p>{{birds.bio}}</p>

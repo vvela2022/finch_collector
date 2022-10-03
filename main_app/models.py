@@ -14,3 +14,11 @@ class Birds(models.Model):
 
     class Meta:
         ordering = ['name']
+
+class Habitat(models.Model):
+    name = models.CharField(max_length = 150, default='unknown')
+    location = models.CharField(max_length = 150)
+    birds = models.ForeignKey(Birds, on_delete=models.CASCADE, related_name='habitats')
+
+    def __str__(self):
+        return self.name

@@ -1,11 +1,13 @@
+from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views import View #view class to handle requests
 from django.http import HttpResponse #a class to handle sending a type of response
 from django.views.generic.base import TemplateView 
-from .models import Birds
+from .models import Birds, Habitat
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 from django.urls import reverse
+
 
 # Create your views here.
 # creating a class called Home and extending it from the view class
@@ -88,3 +90,10 @@ class BirdsDelete(DeleteView):
     template_name = 'birds_delete_confirmation.html'
     success_url = '/birds/'
 
+class HabitatCreate(View):
+    def post(self, request, pk):
+        name = request.POST.get('name') 
+        location = request.POST.get('location')
+        bird = Birds.objects.get(pk=pk)
+        Habitat.objects.create(name=name, location=location, birds=bird)
+        return redirect('birds_detail', pk=pk)

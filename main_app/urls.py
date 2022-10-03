@@ -10,5 +10,6 @@ urlpatterns = [
     path('birds/new/', views.BirdsCreate.as_view(), name='birds_create'),
     path('birds/<int:pk>/', views.BirdsDetail.as_view(), name='birds_detail'),
     path('birds/<int:pk>/update', views.BirdsUpdate.as_view(), name = 'birds_update'),
-    path('birds/<int:pk>/delete', views.BirdsDelete.as_view(), name='birds_delete')
+    path('birds/<int:pk>/delete', views.BirdsDelete.as_view(), name='birds_delete'),
+    path('birds/<int:pk>/habitat/new/', views.HabitatCreate.as_view(), name='habitat_create')
  ]
