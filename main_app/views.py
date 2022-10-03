@@ -4,6 +4,7 @@ from django.http import HttpResponse #a class to handle sending a type of respon
 from django.views.generic.base import TemplateView 
 from .models import Birds
 from django.views.generic.edit import CreateView
+from django.views.generic import DetailView
 
 # Create your views here.
 # creating a class called Home and extending it from the view class
@@ -66,4 +67,9 @@ class BirdsCreate(CreateView):
     fields = ['name', 'img', 'bio', 'verified_bird']
     template_name = 'birds_create.html'
     success_url = '/birds/'
+
+
+class BirdsDetail(DetailView):
+    model = Birds
+    template_name = 'birds_detail.html'
 
