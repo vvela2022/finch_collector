@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Add a Bird</h1>
+
+<form method = 'post'>
+    <!-- security feature -->
+    {% csrf_token %}
+    <!-- generate inputs -->
+    {{form.as_p}}
+    <!-- submit form -->
+    <input type="submit" value="Submit" />
+</form>
+
+{% endblock %}

@@ -3,6 +3,7 @@ from django.views import View #view class to handle requests
 from django.http import HttpResponse #a class to handle sending a type of response
 from django.views.generic.base import TemplateView 
 from .models import Birds
+from django.views.generic.edit import CreateView
 
 # Create your views here.
 # creating a class called Home and extending it from the view class
@@ -52,7 +53,17 @@ class BirdsList(TemplateView):
         # if a query exists we will filter it by name
         if name != None:
             context['birds'] = Birds.objects.filter(name__icontains = name)
+            # We add a header context that includes the search param
+            context['header'] = f"Searching for {name}"
         else:
             context["birds"] = Birds.objects.all() # this is where we add the key into our context object for the view to use
+            # default header for not searching
+            context['header'] = 'Popular Birds'
         return context
+
+class BirdsCreate(CreateView):
+    model = Birds
+    fields = ['name', 'img', 'bio', 'verified_bird']
+    template_name = 'birds_create.html'
+    success_url = '/birds/'
 
