@@ -13,6 +13,11 @@
     <title>Finch Collector - {% block title %}{% endblock %}</title>
 </head>
 <body>
+    <nav>
+        <a class="button is-dark" href="{% url 'home' %}">Home</a>
+        <a class="button is-dark" href="{% url 'birds_list' %}">Birds</a>
+        <a class="button is-dark" href="{% url 'birds_create' %}">New</a>
+    </nav>
     {% block content %}{% endblock %}
 </body>
 </html>
