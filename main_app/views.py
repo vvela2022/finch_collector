@@ -47,6 +47,12 @@ class BirdsList(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["birds"] = Birds.objects.all() # this is where we add the key into our context object for the view to use
+        # to get the query parameter we have to access it in the request.GET dictionary object 
+        name = self.request.GET.get('name')
+        # if a query exists we will filter it by name
+        if name != None:
+            context['birds'] = Birds.objects.filter(name__icontains = name)
+        else:
+            context["birds"] = Birds.objects.all() # this is where we add the key into our context object for the view to use
         return context
 
