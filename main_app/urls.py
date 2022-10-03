@@ -8,5 +8,6 @@ urlpatterns = [
     path('birds/', views.BirdsList.as_view(), name='birds_list'),
     # here is the new route
     path('birds/new/', views.BirdsCreate.as_view(), name='birds_create'),
-    path('birds/<int:pk>/', views.BirdsDetail.as_view(), name='birds_detail')
+    path('birds/<int:pk>/', views.BirdsDetail.as_view(), name='birds_detail'),
+    path('birds/<int:pk>/update', views.BirdsUpdate.as_view(), name = 'birds_update')
  ]

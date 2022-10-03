@@ -25,7 +25,7 @@
 
 <div class="gallery">
   {% for bird in birds %}
-  <a href="">
+  <a href="{% url 'birds_detail' bird.pk %}">
     <div class="card">
       <div class="card-image">
         <figure class="image is-square">
