@@ -1,5 +1,24 @@
 {% extends 'base.html' %}
 {% block title %} Home {% endblock %}
 {% block content %}
-<h1>Finch Collector Home</h1>
+<div class="home__playlists">
+    {% for zoo in zoos %}
+
+        <div class="playlist mb-5">
+            <h3 class="title is-3 has-text-success">{{zoo.title}}</h3>
+            <hr />
+
+            {% for bird in zoo.birds.all %}
+
+                <div class="song">
+                    <span>{{forloop.counter}}</span>
+                    <span><b>{{bird.name}}</b></span>
+                </div>
+
+            {% endfor %}
+        </div>
+    {% empty %} 
+        <div class="playlist mb-5">"There are no songs in this playlist"</div>
+    {% endfor %}
+</div>
 {% endblock %}

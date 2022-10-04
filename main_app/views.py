@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views import View #view class to handle requests
 from django.http import HttpResponse #a class to handle sending a type of response
 from django.views.generic.base import TemplateView 
-from .models import Birds, Habitat
+from .models import Birds, Habitat, Zoo
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 from django.urls import reverse
@@ -16,6 +16,10 @@ class Home(TemplateView):
     # def get(self, request):
     #     return HttpResponse('Spotify Home')
     template_name = 'home.html' #when we use a template view, we don't have to define a get method. Django handles this for us in the background!
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['zoos'] = Zoo.objects.all()
+        return context
 
 class About(TemplateView):
     template_name = 'about.html'
