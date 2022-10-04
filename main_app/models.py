@@ -14,7 +14,7 @@ class Birds(models.Model):
 
     class Meta:
         ordering = ['name']
-
+# one to many relationship
 class Habitat(models.Model):
     name = models.CharField(max_length = 150, default='unknown')
     location = models.CharField(max_length = 150)
@@ -22,3 +22,14 @@ class Habitat(models.Model):
 
     def __str__(self):
         return self.name
+
+# many to many relationship
+
+class Zoo(models.Model):
+    title = models.CharField(max_length=150)
+    #this is going to create the many to many relationship and join table
+    birds = models.ManyToManyField(Birds)
+
+    def __str__(self):
+        return self.title
+    
