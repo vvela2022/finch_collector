@@ -81,6 +81,11 @@ class BirdsDetail(DetailView):
     model = Birds
     template_name = 'birds_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['zoos'] = Zoo.objects.all()
+        return context
+
 class BirdsUpdate(UpdateView):
     model = Birds
     fields = ['name', 'img', 'bio', 'verified_bird']

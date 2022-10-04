@@ -57,20 +57,48 @@
     <!-- inside container -->
 <div class="detail__songs mb-5">
     <h3 class="title is-3">Habitats</h3>
-
     {% for habitat in birds.habitats.all %}
         <div class="song">
             <span>{{forloop.counter}}</span>
             <span><b>Type: {{habitat.name}}</b></span>
             <span>Location: {{habitat.location}}</span>
         </div>
+        <span>
+            <div class="dropdown">
+              <div class="dropdown-trigger">
+                <button
+                  class="button"
+                  aria-haspopup="true"
+                  aria-controls="dropdown-menu"
+                >
+                  <span>Add to Zoo</span>
+                  <span class="icon is-small">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </div>
+              <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                  {% for zoo in zoos %}
+              <!-- each playlist becomes a drop
+              down item with the ids needed to add to the join table  -->
+                  <a
+                    href="{% url 'zoo_birds_assoc' zoo.pk birds.pk %}?assoc=add"
+                    class="dropdown-item"
+                  >
+                    {{zoo.title}}
+                  </a>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </span>
     {% empty %}
         <article class="message">
             <div class="message-header">
                 <p>No Habitats Available</p>
             </div>
         </article>
-
     {% endfor %}
 </div>
 <!--  above about section  -->
@@ -79,5 +107,4 @@
         <p>{{birds.bio}}</p>
     </div>
 </div>
-
 {% endblock %}
