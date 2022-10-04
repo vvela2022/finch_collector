@@ -101,3 +101,19 @@ class HabitatCreate(View):
         bird = Birds.objects.get(pk=pk)
         Habitat.objects.create(name=name, location=location, birds=bird)
         return redirect('birds_detail', pk=pk)
+
+
+class ZooBirdsAssoc(View):
+    
+    def get(self, request, pk, birds_pk):
+        #get the query param from the url
+        assoc = request.GET.get('assoc')
+        if assoc == 'remove':
+            # get the playlist by the id and 
+            # remove from the join table the given song_id
+            Zoo.objects.get(pk=pk).birds.remove(birds_pk)
+        if assoc == 'add':
+            # get the playlist by the id and
+            # add to the join table the given bird_id
+            Zoo.objects.get(pk=pk).birds.add(birds_pk)
+        return redirect('home')
