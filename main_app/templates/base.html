@@ -16,11 +16,20 @@
     <title>Finch Collector - {% block title %}{% endblock %}</title>
 </head>
 <body>
-    <nav>
-        <a class="button is-dark" href="{% url 'home' %}">Home</a>
-        <a class="button is-dark" href="{% url 'birds_list' %}">Birds</a>
-        <a class="button is-dark" href="{% url 'birds_create' %}">New</a>
-    </nav>
+    {% if user.is_authenticated %}
+                <div class="navbar-menu navbar-end">
+                    <span class="navbar-item">Welcome: {{user.username}}</span>
+                    <a class="navbar-item" href="{% url 'logout' %}">Logout</a>
+                    <a class="navbar-item" href="{% url 'home' %}">Home</a>
+                    <a class="navbar-item" href="{% url 'birds_list' %}">Birds</a>
+                    <a class="navbar-item" href="{% url 'birds_create' %}">New</a>
+                </div>
+            {% else %}
+                <div class="navbar-menu navbar-end">
+                    <a class="navbar-item" href="{% url 'login' %}">Log In</a>
+                </div>
+            {% endif %}
+   
     {% block content %}{% endblock %}
 </body>
 </html>

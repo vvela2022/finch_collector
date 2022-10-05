@@ -60,11 +60,11 @@ class BirdsList(TemplateView):
         name = self.request.GET.get('name')
         # if a query exists we will filter it by name
         if name != None:
-            context['birds'] = Birds.objects.filter(name__icontains = name)
+            context['birds'] = Birds.objects.filter(name__icontains = name, user=self.request.user)
             # We add a header context that includes the search param
             context['header'] = f"Searching for {name}"
         else:
-            context["birds"] = Birds.objects.all() # this is where we add the key into our context object for the view to use
+            context["birds"] = Birds.objects.filter(user=self.request.user) # this is where we add the key into our context object for the view to use
             # default header for not searching
             context['header'] = 'Popular Birds'
         return context
@@ -73,7 +73,13 @@ class BirdsCreate(CreateView):
     model = Birds
     fields = ['name', 'img', 'bio', 'verified_bird']
     template_name = 'birds_create.html'
+    # this is our new method that will add the user into our submitted form
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(BirdsCreate, self).form_valid(form)
+
     def get_success_url(self):
+        print(self.kwargs)
         return reverse('birds_detail', kwargs={'pk': self.object.pk})
 
 
