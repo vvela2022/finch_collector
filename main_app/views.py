@@ -10,6 +10,8 @@ from django.urls import reverse
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 
 # Create your views here.
@@ -54,6 +56,7 @@ class About(TemplateView):
 #           "https://i1.sndcdn.com/artworks-sNjd3toBZYCG-0-t500x500.jpg", "Ryan Gary Raddon, better known by his stage name Kaskade, is an American DJ, record producer, and remixer."),
 # ]
 
+@method_decorator(login_required, name='dispatch')
 class BirdsList(TemplateView):
     template_name = "birds_list.html"
 
