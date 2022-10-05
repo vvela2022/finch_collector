@@ -13,4 +13,5 @@ urlpatterns = [
     path('birds/<int:pk>/delete', views.BirdsDelete.as_view(), name='birds_delete'),
     path('birds/<int:pk>/habitat/new/', views.HabitatCreate.as_view(), name='habitat_create'),
     path('zoos/<int:pk>/birds/<int:birds_pk>/', views.ZooBirdsAssoc.as_view(), name="zoo_birds_assoc"),
+    path('accounts/signup/', views.Signup.as_view(), name='signup')
  ]

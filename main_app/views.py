@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from django.shortcuts import render
+# from django.shortcuts import render
 from django.views import View #view class to handle requests
 from django.http import HttpResponse #a class to handle sending a type of response
 from django.views.generic.base import TemplateView 
@@ -7,6 +7,9 @@ from .models import Birds, Habitat, Zoo
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 from django.urls import reverse
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import redirect, render
 
 
 # Create your views here.
@@ -128,3 +131,20 @@ class ZooBirdsAssoc(View):
             # add to the join table the given bird_id
             Zoo.objects.get(pk=pk).birds.add(birds_pk)
         return redirect('home')
+
+class Signup(View):
+    # show a form to fill out
+    def get(self, request):
+        form = UserCreationForm()
+        context = {'form': form}
+        return render(request, 'registration/signup.html', context)
+    # on form submmit, validate the form and login the user
+    def post(self, request):
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('birds_list')
+        else:
+            context = {'form': form}
+            return render(request, 'registration/signup.html', context)
